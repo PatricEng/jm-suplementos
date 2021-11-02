@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Http;
+
+class Request {
+
+    /**
+     * Métado HTTP da requisição
+     * @var string
+     */
+    private $httpMethod;
+
+    /**
+     * URI da página
+     * @var string
+     */
+    private $uri;
+
+     /**
+     * Parâmetros da URL
+     * @var array
+     */
+    private $queryParams = [];
+
+     /**
+     * Variáveis recebida no POST da página ($_POST)
+     * @var array
+     */
+    private $postVars = [];
+
+     /**
+     * Cabeçalho da requisição
+     * @var array
+     */
+    private $headers = [];
+
+    /**
+     * Construtor da classe
+     */
+    public function __construct() {
+        $this->queryParams = $_GET ?? [];
+        $this->postVars = $_POST ?? [];
+        $this->headers = getallheaders();
+        $this->httpMethod = $_SERVER['REQUEST_METHOD'] ?? '';
+        $this->uri = $_SERVER['REQUEST_URI'] ?? '';
+    }
+
+    /**
+     * Métado responsável por retorna o métado HTTP da requisição
+     * @return string 
+     */
+    public function getHttpMethod() {
+        return $this->httpMethod;
+    }
+
+    /**
+     * Métado responsável por retorna o métado URI da requisição
+     * @return string 
+     */
+    public function getUri() {
+        return $this->uri;
+    }
+
+    /**
+     * Métado responsável por retorna os headers da requisição
+     * @return array 
+     */
+    public function getHeaders() {
+        return $this->headers;
+    }
+
+    /**
+     * Métado responsável por retorna os parâmetros da URL da requisição
+     * @return array
+     */
+    public function getQueryParams() {
+        return $this->queryParams;
+    }
+
+    /**
+     * Métado responsável por retorna as variáveis POST da requisição
+     * @return array
+     */
+    public function getPostVars() {
+        return $this->postVars;
+    }
+}
